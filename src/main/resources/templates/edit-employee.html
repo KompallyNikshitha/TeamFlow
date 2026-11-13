@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamFlow - Edit Employee</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f5fb;
+            padding: 30px;
+            color: #252b45;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+
+        h1 { color: #343a70; }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #575fcf;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 6px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        a {
+            color: #575fcf;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <a th:href="@{/employees}">← Back to Employees</a>
+
+    <div class="card">
+        <h1>Edit Employee</h1>
+
+        <form th:action="@{/employees/update/{id}(id=${employee.id})}"
+              th:object="${employee}" method="post">
+
+            <label>Employee Name</label>
+            <input type="text" th:field="*{name}" required>
+
+            <label>Email Address</label>
+            <input type="email" th:field="*{email}" required>
+
+            <label>Role</label>
+            <select th:field="*{role}" required>
+                <option value="Project Manager">Project Manager</option>
+                <option value="Developer">Developer</option>
+                <option value="Designer">Designer</option>
+                <option value="Tester">Tester</option>
+                <option value="Team Member">Team Member</option>
+            </select>
+
+            <button type="submit">Update Employee</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

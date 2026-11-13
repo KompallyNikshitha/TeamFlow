@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Project - TeamFlow</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f5fb;
+            padding: 35px;
+        }
+        .container {
+            background: white;
+            max-width: 550px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        button {
+            background: #5146d8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Edit Project</h2>
+
+    <form th:action="@{/projects/update}"
+          th:object="${project}" method="post">
+
+        <input type="hidden" th:field="*{id}">
+
+        <label>Project Name</label>
+        <input type="text" th:field="*{name}" required>
+
+        <label>Description</label>
+        <input type="text" th:field="*{description}">
+
+        <label>Status</label>
+        <select th:field="*{status}">
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+
+        <label>Deadline</label>
+        <input type="date" th:field="*{deadline}">
+
+        <button type="submit">Update Project</button>
+    </form>
+
+    <a href="/projects">Back to Projects</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TeamFlow - Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f5fb;
+            min-height: 100vh;
+            padding: 40px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .header {
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            color: #51458a;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #777;
+            font-size: 16px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .card {
+            display: block;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: 0.3s ease;
+            border-left: 5px solid #8b7bd1;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.13);
+        }
+
+        .card h3 {
+            color: #6c63b5;
+            font-size: 19px;
+            margin-bottom: 18px;
+        }
+
+        .card h2 {
+            font-size: 30px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Welcome to TeamFlow</h1>
+            <p>Project Management and Team Collaboration Dashboard</p>
+        </div>
+
+        <div class="cards">
+
+            <a href="/projects" class="card">
+                <h3>Total Projects</h3>
+                <h2 th:text="${totalProjects}">0</h2>
+                <p>View Projects →</p>
+            </a>
+
+            <a href="/tasks?status=In%20Progress" class="card">
+                <h3>Active Tasks</h3>
+                <h2 th:text="${activeTasks}">0</h2>
+                <p>View Active Tasks →</p>
+            </a>
+
+            <a href="/tasks?status=Completed" class="card">
+                <h3>Completed Tasks</h3>
+                <h2 th:text="${completedTasks}">0</h2>
+                <p>View Completed Tasks →</p>
+            </a>
+
+            <a href="/employees" class="card">
+                <h3>Team Members</h3>
+                <h2>Manage Team</h2>
+                <p>Add and Manage Employees →</p>
+            </a>
+
+        </div>
+
+        <div class="footer">
+            <p>TeamFlow - Project Management System</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TeamFlow - Edit Task</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f5fb;
+            margin: 0;
+            color: #252744;
+        }
+
+        header {
+            background: #5146d8;
+            color: white;
+            padding: 20px 35px;
+        }
+
+        main {
+            padding: 35px;
+        }
+
+        .panel {
+            background: white;
+            max-width: 650px;
+            margin: 20px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000010;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #5146d8;
+            color: white;
+            padding: 12px 25px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #3930ad;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #5146d8;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>TeamFlow</h1>
+    <p>Edit Task Details</p>
+</header>
+
+<main>
+
+    <div class="panel">
+
+        <h2>Edit Task</h2>
+
+        <form th:action="@{/tasks/update/{id}(id=${task.id})}"
+              th:object="${task}"
+              method="post">
+
+            <label>Task Title</label>
+            <input type="text"
+                   th:field="*{title}"
+                   placeholder="Enter task title"
+                   required>
+
+            <label>Description</label>
+            <input type="text"
+                   th:field="*{description}"
+                   placeholder="Enter task description">
+
+            <label>Status</label>
+            <select th:field="*{status}" required>
+                <option value="To Do">To Do</option>
+                <option value="In Progress">In Progress</option>
+                <option value="In Review">In Review</option>
+                <option value="Completed">Completed</option>
+            </select>
+
+            <label>Priority</label>
+            <select th:field="*{priority}" required>
+                <option value="High">High Priority</option>
+                <option value="Medium">Medium Priority</option>
+                <option value="Low">Low Priority</option>
+            </select>
+
+            <label>Deadline</label>
+            <input type="date" th:field="*{deadline}">
+
+            <label>Select Project</label>
+            <select name="projectId" required>
+                <option value="">Select Project</option>
+
+                <option th:each="project : ${projects}"
+                        th:value="${project.id}"
+                        th:text="${project.name}"
+                        th:selected="${task.project != null and task.project.id == project.id}">
+                </option>
+            </select>
+
+            <label>Assign Employee</label>
+            <select name="employeeId">
+                <option value="">Select Employee (Optional)</option>
+
+                <option th:each="employee : ${employees}"
+                        th:value="${employee.id}"
+                        th:text="${employee.name}"
+                        th:selected="${task.employee != null and task.employee.id == employee.id}">
+                </option>
+            </select>
+
+            <button type="submit">Update Task</button>
+
+        </form>
+
+        <a href="/tasks" class="back">← Back to Tasks</a>
+
+    </div>
+
+</main>
+
+</body>
+</html>
