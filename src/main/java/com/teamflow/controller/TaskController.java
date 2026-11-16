@@ -8,7 +8,8 @@ import com.teamflow.entity.Employee;
 import com.teamflow.repository.TaskRepository;
 import com.teamflow.repository.ProjectRepository;
 import com.teamflow.repository.EmployeeRepository;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -76,6 +77,49 @@ public class TaskController {
         taskRepository.save(task);
 
         return "redirect:/tasks";
+    }
+
+    // Employee updates the status of their own assigned task
+    @PostMapping("/{id}/update-status")
+    public String updateEmployeeTaskStatus(
+            @PathVariable Long id,
+            @RequestParam String status,
+            Authentication authentication) {
+
+        System.out.println("========== TASK UPDATE REQUEST ==========");
+        System.out.println("User: " + authentication.getName());
+        System.out.println("Authorities: " + authentication.getAuthorities());
+        System.out.println("Task ID: " + id);
+        System.out.println("Requested status: " + status);
+
+        Employee employee = employeeRepository
+                .findByUsername(authentication.getName())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Employee not found"));
+
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Task not found"));
+
+        if (!status.equals("To Do")
+                && !status.equals("In Progress")
+                && !status.equals("In Review")
+                && !status.equals("Completed")) {
+            throw new IllegalArgumentException("Invalid task status");
+        }
+
+        if (task.getEmployee() == null
+                || !task.getEmployee().getId().equals(employee.getId())) {
+            throw new AccessDeniedException(
+                    "You cannot update another employee's task");
+        }
+
+        task.setStatus(status);
+        taskRepository.save(task);
+
+        System.out.println("Task status updated successfully!");
+
+        return "redirect:/employee/dashboard";
     }
 
     // Open edit page
