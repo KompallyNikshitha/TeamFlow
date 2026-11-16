@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TeamFlow Employee Dashboard</title>
+    <style>
+        body { font-family: Arial; background: #f1f5f9; margin: 0; }
+        header { background: #4338ca; color: white; padding: 25px; }
+        main { padding: 35px; }
+        .card { background: white; padding: 25px; border-radius: 12px; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>TeamFlow - Employee Dashboard</h1>
+    <p>Welcome, Employee!</p>
+</header>
+<main>
+    <div class="card">
+        <h2>My Workspace</h2>
+        <p>View your tasks and track your work progress.</p>
+        <a th:href="@{/tasks}">View Tasks</a>
+    </div>
+    <br>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</main>
+</body>
+</html>

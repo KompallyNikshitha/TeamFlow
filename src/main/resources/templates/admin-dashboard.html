@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TeamFlow Admin Dashboard</title>
+    <style>
+        body { font-family: Arial; background: #f1f5f9; margin: 0; }
+        header { background: #1e3a8a; color: white; padding: 25px; }
+        main { padding: 35px; }
+        .card { background: white; padding: 25px; border-radius: 12px; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>TeamFlow - Admin Dashboard</h1>
+    <p>Welcome, Administrator!</p>
+</header>
+<main>
+    <div class="card">
+        <h2>System Administration</h2>
+        <p>Manage employees, managers, projects and system activities.</p>
+        <a th:href="@{/employees}">Manage Employees</a>
+        <br><br>
+        <a th:href="@{/projects}">Manage Projects</a>
+    </div>
+    <br>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</main>
+</body>
+</html>

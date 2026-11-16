@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TeamFlow Manager Dashboard</title>
+    <style>
+        body { font-family: Arial; background: #f1f5f9; margin: 0; }
+        header { background: #166534; color: white; padding: 25px; }
+        main { padding: 35px; }
+        .card { background: white; padding: 25px; border-radius: 12px; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>TeamFlow - Manager Dashboard</h1>
+    <p>Welcome, Manager!</p>
+</header>
+<main>
+    <div class="card">
+        <h2>Project Management</h2>
+        <p>Create projects and manage team tasks.</p>
+        <a th:href="@{/projects}">View Projects</a>
+        <br><br>
+        <a th:href="@{/tasks}">Manage Tasks</a>
+    </div>
+    <br>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</main>
+</body>
+</html>

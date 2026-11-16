@@ -1,12 +1,18 @@
-
 package com.teamflow.repository;
 
 import com.teamflow.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import java.util.List;
-@Repository
+
 public interface TaskRepository extends JpaRepository<Task, Long> {
+
     List<Task> findByStatus(String status);
+
     long countByStatus(String status);
+
+    List<Task> findByEmployee_Id(Long employeeId);
+
+    long countByEmployee_Id(Long employeeId);
+
+    long countByEmployee_IdAndStatus(Long employeeId, String status);
 }
